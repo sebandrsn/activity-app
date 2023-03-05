@@ -4,6 +4,7 @@ using ActivityApp.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ActivityApp.Persistance.Migrations
 {
     [DbContext(typeof(ActivityAppContext))]
-    partial class ActivityAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230305200924_AddLengthToHikingTrail")]
+    partial class AddLengthToHikingTrail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +94,7 @@ namespace ActivityApp.Persistance.Migrations
                     b.Property<Guid>("CoordinatesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double?>("Length")
+                    b.Property<double>("Length")
                         .HasColumnType("float");
 
                     b.Property<string>("Name")

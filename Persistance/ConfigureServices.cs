@@ -13,7 +13,6 @@ namespace ActivityApp.Persistance
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ActivityApp;"));
 
             services.AddScoped<IHikingTrailRepository, HikingTrailRepository>();
-            services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
 
             return services;
         }

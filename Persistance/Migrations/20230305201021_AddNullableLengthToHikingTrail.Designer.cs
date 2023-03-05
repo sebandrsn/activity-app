@@ -4,6 +4,7 @@ using ActivityApp.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ActivityApp.Persistance.Migrations
 {
     [DbContext(typeof(ActivityAppContext))]
-    partial class ActivityAppContextModelSnapshot : ModelSnapshot
+    [Migration("20230305201021_AddNullableLengthToHikingTrail")]
+    partial class AddNullableLengthToHikingTrail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
