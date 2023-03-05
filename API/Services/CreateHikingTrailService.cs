@@ -2,7 +2,6 @@
 using ActivityApp.Domain.Entities;
 using ActivityApp.Application.Feature.HikingTrails.Command;
 using ActivityApp.Contracts;
-using ActivityApp.Application.Feature.Coordinate.Command;
 
 namespace ActivityApp.Services
 {
