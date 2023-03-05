@@ -1,4 +1,4 @@
-﻿using ActivityApp.Domain;
+﻿using ActivityApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ActivityApp.Persistance
@@ -8,7 +8,10 @@ namespace ActivityApp.Persistance
         public ActivityAppContext(DbContextOptions<ActivityAppContext> options) : base(options)
         { }
 
-        public DbSet<Resort> Resorts { get; set; }
+        public DbSet<HikingTrail> HikingTrails { get; set; }
+        public DbSet<MountainbikeTrail> MountainbikeTrails { get; set; }
+        public DbSet<CampingSpot> CampingSpots { get; set; }
+        public DbSet<Coordinates> Coordinates { get; set; }
         public DbSet<Address> Addresses { get; set; }
     }
 }

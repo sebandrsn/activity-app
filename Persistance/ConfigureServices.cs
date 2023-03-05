@@ -11,7 +11,8 @@ namespace ActivityApp.Persistance
         {
             services.AddDbContext<ActivityAppContext>(options => 
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ActivityApp;"));
-            services.AddScoped<IResortRepository, ResortRepository>();
+
+            services.AddScoped<IHikingTrailRepository, HikingTrailRepository>();
 
             return services;
         }
