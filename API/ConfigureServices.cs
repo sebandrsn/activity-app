@@ -6,7 +6,7 @@ namespace ActivityApp
     {
         public static IServiceCollection AddServices(this IServiceCollection services) 
         {
-            services.AddScoped<ICreateHikingTrailService, CreateHikingTrailService>();
+            services.AddScoped<IHikingTrailService, HikingTrailService>();
 
             return services;
         }

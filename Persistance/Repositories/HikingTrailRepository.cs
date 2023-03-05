@@ -1,6 +1,7 @@
 ﻿using ActivityApp.Application.Contracts;
 using ActivityApp.Domain;
 using ActivityApp.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ActivityApp.Persistance.Repositories
 {
@@ -23,7 +24,9 @@ namespace ActivityApp.Persistance.Repositories
 
         public async Task<HikingTrail?> GetByIdAsync(Guid id)
         {
-            return await _context.FindAsync<HikingTrail>(id);
+            return await _context.HikingTrails
+                .Include(ht => ht.Coordinates)
+                .FirstOrDefaultAsync(ht => ht.Id == id);
         }
     }
 }

@@ -8,19 +8,32 @@ namespace ActivityApp.Api.Controllers
     [Route("[controller]")]
     public class HikingTrailController : ControllerBase
     {
-        private readonly ICreateHikingTrailService _createHikingTrailService;
+        private readonly IHikingTrailService _hikingTrailService;
 
-        public HikingTrailController(ICreateHikingTrailService createHikingTrailService)
+        public HikingTrailController(IHikingTrailService hikingTrailService)
         {
-            _createHikingTrailService = createHikingTrailService;
+            _hikingTrailService = hikingTrailService;
         }
 
-        [HttpPost(Name = "AddHikingTrail")]
-        public async Task<ActionResult<HikingTrailRequest>> Add(HikingTrailRequest hikingTrailRequest)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<HikingTrailResponse>> Get(Guid id)
         {
-            var hikingTrailService = await _createHikingTrailService.CreateHikingTrail(hikingTrailRequest);
+            var hikingTrail = await _hikingTrailService.GetById(id);
+            return hikingTrail;
+        }
 
-            return Ok(hikingTrailService);
+        [HttpPost]
+        public async Task<ActionResult<HikingTrailResponse>> Add(HikingTrailRequest hikingTrailRequest)
+        {
+            var hikingTrail = await _hikingTrailService.Create(hikingTrailRequest);
+            return Ok(hikingTrail);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<HikingTrailResponse>> Update(Guid id, HikingTrailRequest hikingTrailRequest)
+        {
+            var hikingTrail = await _hikingTrailService.Update(id, hikingTrailRequest);
+            return Ok(hikingTrail);
         }
     }
 }
