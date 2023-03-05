@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using ActivityApp.Application.Interfaces;
 using ActivityApp.Persistance.Repositories;
+using ActivityApp.Application.Contracts;
 
 namespace ActivityApp.Persistance
 {
@@ -13,6 +13,7 @@ namespace ActivityApp.Persistance
                 options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ActivityApp;"));
 
             services.AddScoped<IHikingTrailRepository, HikingTrailRepository>();
+            services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
 
             return services;
         }

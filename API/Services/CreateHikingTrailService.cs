@@ -1,7 +1,8 @@
 ﻿using MediatR;
-using ActivityApp.Api.Models;
 using ActivityApp.Domain.Entities;
 using ActivityApp.Application.Feature.HikingTrails.Command;
+using ActivityApp.Contracts;
+using ActivityApp.Application.Feature.Coordinate.Command;
 
 namespace ActivityApp.Services
 {
@@ -14,22 +15,29 @@ namespace ActivityApp.Services
             _mediator = mediator;
         }
 
-        public async Task<HikingTrailModel> CreateHikingTrail(HikingTrailModel hikingTrailModel)
+        public async Task<HikingTrailResponse> CreateHikingTrail(HikingTrailRequest hikingTrailRequest)
         {
-            var command = new CreateHikingTrailCommand()
+            var createHikingTrailCommand = new CreateHikingTrailCommand()
             {
-                Name = hikingTrailModel.Name,
+                Name = hikingTrailRequest.Name,
                 Coordinates = new Coordinates()
                 {
-                    Latitude = hikingTrailModel.Coordinates.Latitude,
-                    Longitude = hikingTrailModel.Coordinates.Longitude
+                    Latitude = hikingTrailRequest.Latitude,
+                    Longitude = hikingTrailRequest.Longitude
                 }
             };
 
-            var hikingTrailId = await _mediator.Send(command);
-            hikingTrailModel.Id = hikingTrailId;
+            var hikingTrail = await _mediator.Send(createHikingTrailCommand);
 
-            return hikingTrailModel;
+            var hikingTrailResponse = new HikingTrailResponse(
+                hikingTrail.Id, 
+                hikingTrailRequest.Name,
+                hikingTrail.Coordinates.Id,
+                hikingTrailRequest.Latitude,
+                hikingTrailRequest.Longitude
+                );
+
+            return hikingTrailResponse;
         }
     }
 }

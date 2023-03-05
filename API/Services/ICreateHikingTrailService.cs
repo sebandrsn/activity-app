@@ -1,9 +1,9 @@
-﻿using ActivityApp.Api.Models;
+﻿using ActivityApp.Contracts;
 
 namespace ActivityApp.Services
 {
     public interface ICreateHikingTrailService
     {
-        public Task<HikingTrailModel> CreateHikingTrail(HikingTrailModel hikingTrailModel);
+        public Task<HikingTrailResponse> CreateHikingTrail(HikingTrailRequest hikingTrailRequest);
     }
 }

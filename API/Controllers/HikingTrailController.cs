@@ -1,6 +1,6 @@
 using ActivityApp.Services;
 using Microsoft.AspNetCore.Mvc;
-using ActivityApp.Api.Models;
+using ActivityApp.Contracts;
 
 namespace ActivityApp.Api.Controllers
 {
@@ -16,9 +16,9 @@ namespace ActivityApp.Api.Controllers
         }
 
         [HttpPost(Name = "AddHikingTrail")]
-        public async Task<ActionResult<HikingTrailModel>> Add([FromBody] HikingTrailModel hikingTrailModel)
+        public async Task<ActionResult<HikingTrailRequest>> Add(HikingTrailRequest hikingTrailRequest)
         {
-            var hikingTrailService = await _createHikingTrailService.CreateHikingTrail(hikingTrailModel);
+            var hikingTrailService = await _createHikingTrailService.CreateHikingTrail(hikingTrailRequest);
 
             return Ok(hikingTrailService);
         }

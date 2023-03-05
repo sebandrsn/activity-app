@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>clean_architecture_api</RootNamespace>
+    <RootNamespace>ActivityApp</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

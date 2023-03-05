@@ -2,7 +2,7 @@
 
 namespace ActivityApp.Application.Contracts
 {
-    public interface IHikingTrailRepository : IAsyncRepository<HikingTrail>
+    public interface ICoordinatesRepository : IAsyncRepository<Coordinates>
     {
     }
 }

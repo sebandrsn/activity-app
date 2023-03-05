@@ -1,4 +1,4 @@
-﻿using ActivityApp.Application.Interfaces;
+﻿using ActivityApp.Application.Contracts;
 using ActivityApp.Domain;
 using ActivityApp.Domain.Entities;
 

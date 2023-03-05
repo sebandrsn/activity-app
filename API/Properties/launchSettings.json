@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "clean_architecture_api": {
+    "ActivityApp": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

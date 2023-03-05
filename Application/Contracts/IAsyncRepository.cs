@@ -1,4 +1,4 @@
-﻿namespace ActivityApp.Application.Interfaces
+﻿namespace ActivityApp.Application.Contracts
 {
     public interface IAsyncRepository<T> where T : class
     {
