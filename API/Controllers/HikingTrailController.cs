@@ -26,11 +26,11 @@ namespace ActivityApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<HikingTrailResponse>> Create(HikingTrailRequest hikingTrailRequest)
         {
-            var hikingTrail = await _hikingTrailService.Create(hikingTrailRequest);
+            var hikingTrailId = await _hikingTrailService.Create(hikingTrailRequest);
             return CreatedAtAction(
                 actionName: nameof(Get), 
-                routeValues: new { id = hikingTrail.HikingTrailId }, 
-                value: hikingTrail
+                routeValues: new { id = hikingTrailId }, 
+                value: hikingTrailId
                 );
         }
 

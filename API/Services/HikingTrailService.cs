@@ -3,7 +3,6 @@ using ActivityApp.Domain.Entities;
 using ActivityApp.Application.Feature.HikingTrails.Command;
 using ActivityApp.Contracts;
 using ActivityApp.Application.Feature.HikingTrails.Queries;
-using ActivityApp.Application.DTOs;
 
 namespace ActivityApp.Services
 {
@@ -55,36 +54,20 @@ namespace ActivityApp.Services
             return hikingTrailId;
         }
 
-        public async Task<HikingTrailResponse> Update(Guid id, HikingTrailRequest hikingTrailRequest)
+        public async Task<Guid> Update(Guid id, HikingTrailRequest hikingTrailRequest)
         {
-            var hikingTrailDTO = new HikingTrailDTO()
+            var command = new UpdateHikingTrailCommand()
             {
-                Id = id,
+                Id = id, 
                 Name = hikingTrailRequest.Name,
-                Coordinates = new CoordinatesDTO()
-                {
-                    Latitude = hikingTrailRequest.Latitude,
-                    Longitude = hikingTrailRequest.Longitude
-                },
+                Latitude = hikingTrailRequest.Latitude,
+                Longitude= hikingTrailRequest.Longitude,
                 Length = hikingTrailRequest.Length
             };
 
-            var command = new UpdateHikingTrailCommand()
-            {
-                HikingTrailDTO = hikingTrailDTO
-            };
+            var hikingTrailGuid = await _mediator.Send(command);
 
-            await _mediator.Send(command);
-
-            return new HikingTrailResponse(
-                hikingTrailDTO.Id,
-                hikingTrailDTO.Name,
-                hikingTrailDTO.Coordinates.Id,
-                hikingTrailDTO.Coordinates.Latitude,
-                hikingTrailDTO.Coordinates.Longitude,
-                hikingTrailDTO.Length
-                );
-
+            return hikingTrailGuid;
         }
     }
 }

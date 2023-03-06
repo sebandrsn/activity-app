@@ -6,7 +6,11 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command
 {
     public class UpdateHikingTrailCommand : IRequest<Guid>
     {
-        public HikingTrailDTO HikingTrailDTO { get; set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; } = null!;
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? Length { get; set; }
     }
 
     public class UpdateHikingTrailCommandHandler : IRequestHandler<UpdateHikingTrailCommand, Guid>
@@ -20,30 +24,30 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command
 
         public async Task<Guid> Handle(UpdateHikingTrailCommand request, CancellationToken cancellationToken)
         {
-            var hikingTrail = await _hikingTrailRepository.GetByIdAsync(request.HikingTrailDTO.Id);
+            var hikingTrail = await _hikingTrailRepository.GetByIdAsync(request.Id);
 
             //If not found, implement NotFoundException here
 
             if (hikingTrail != null)
             {
-                if (request.HikingTrailDTO.Name != null && hikingTrail.Name != request.HikingTrailDTO.Name)
+                if (request.Name != null && hikingTrail.Name != request.Name)
                 {
-                    hikingTrail.Name = request.HikingTrailDTO.Name;
+                    hikingTrail.Name = request.Name;
                 }
 
-                if (request.HikingTrailDTO.Coordinates.Longitude != null && hikingTrail.Coordinates.Longitude != request.HikingTrailDTO.Coordinates.Longitude)
+                if (request.Longitude != null && hikingTrail.Coordinates.Longitude != request.Longitude)
                 {
-                    hikingTrail.Coordinates.Longitude = request.HikingTrailDTO.Coordinates.Longitude;
+                    hikingTrail.Coordinates.Longitude = request.Longitude;
                 }
 
-                if (request.HikingTrailDTO.Coordinates.Latitude != null && hikingTrail.Coordinates.Latitude != request.HikingTrailDTO.Coordinates.Latitude)
+                if (request.Latitude != null && hikingTrail.Coordinates.Latitude != request.Latitude)
                 {
-                    hikingTrail.Coordinates.Latitude = request.HikingTrailDTO.Coordinates.Latitude;
+                    hikingTrail.Coordinates.Latitude = request.Latitude;
                 }
 
-                if (request.HikingTrailDTO.Length != null && hikingTrail.Length != request.HikingTrailDTO.Length)
+                if (request.Length != null && hikingTrail.Length != request.Length)
                 {
-                    hikingTrail.Length = request.HikingTrailDTO.Length;
+                    hikingTrail.Length = request.Length;
                 }
 
                 await _hikingTrailRepository.UpdateAsync(hikingTrail);
