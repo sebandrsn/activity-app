@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using ActivityApp.Persistance.Repositories;
 using ActivityApp.Application.Contracts;
+using Microsoft.Extensions.Configuration;
 
 namespace ActivityApp.Persistance
 {
     public static class ConfigureServices
     {
-        public static IServiceCollection AddPersistanceServices(this IServiceCollection services)
+        public static IServiceCollection AddPersistanceServices(this IServiceCollection services, IConfiguration configuration)
         {
+            var connectionString = configuration.GetConnectionString("ActivityApp");
             services.AddDbContext<ActivityAppContext>(options => 
-                options.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=ActivityApp;"));
+                options.UseNpgsql(connectionString));
 
             services.AddScoped<IHikingTrailRepository, HikingTrailRepository>();
 

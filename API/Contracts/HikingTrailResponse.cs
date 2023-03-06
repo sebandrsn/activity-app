@@ -2,26 +2,12 @@
 {
     public class HikingTrailResponse
     {
-        public HikingTrailResponse(
-            Guid hikingTrailId,
-            string name,
-            Guid coordinatesId,
-            double latitude,
-            double longitude
-            )
-        {
-            HikingTrailId = hikingTrailId;
-            Name = name;            
-            CoordinatesId = coordinatesId;
-            Latitude = latitude;
-            Longitude = longitude;
-        }
+        public Guid HikingTrailId { get; set; }
+        public string Name { get; set; } = null!;
 
-        public Guid HikingTrailId { get; }
-        public string Name { get; } = null!;
-
-        public Guid CoordinatesId { get; }
-        public double Latitude { get; }
-        public double Longitude { get; }
+        public Guid CoordinatesId { get; set; }
+        public double? Latitude { get; set; }
+        public double? Longitude { get; set; }
+        public double? Length { get; set; }
     }
 }

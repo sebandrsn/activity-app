@@ -5,7 +5,7 @@ namespace ActivityApp.Services
     public interface IHikingTrailService
     {
         public Task<HikingTrailResponse> GetById(Guid Id);
-        public Task<HikingTrailResponse> Create(HikingTrailRequest hikingTrailRequest);
-        public Task<HikingTrailResponse> Update(Guid id, HikingTrailRequest hikingTrailRequest);
+        public Task<Guid> Create(HikingTrailRequest hikingTrailRequest);
+        public Task<Guid> Update(Guid id, HikingTrailRequest hikingTrailRequest);
     }
 }

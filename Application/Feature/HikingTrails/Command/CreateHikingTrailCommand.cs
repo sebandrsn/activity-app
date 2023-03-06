@@ -4,21 +4,21 @@ using MediatR;
 
 namespace ActivityApp.Application.Feature.HikingTrails.Command
 {
-    public class CreateHikingTrailCommand : IRequest<HikingTrail>
+    public class CreateHikingTrailCommand : IRequest<Guid>
     {
         public string Name { get; set; } = null!;
         public Address Address { get; set; } = null!;
         public Coordinates Coordinates { get; set; } = null!;
     }
 
-    public class CreateHikingTrailCommandHandler : IRequestHandler<CreateHikingTrailCommand, HikingTrail>
+    public class CreateHikingTrailCommandHandler : IRequestHandler<CreateHikingTrailCommand, Guid>
     {
         private readonly IHikingTrailRepository _hikingTrailRepository;
         public CreateHikingTrailCommandHandler(IHikingTrailRepository hikingTrailRepository)
         {
             _hikingTrailRepository = hikingTrailRepository;
         }
-        public async Task<HikingTrail> Handle(CreateHikingTrailCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateHikingTrailCommand request, CancellationToken cancellationToken)
         {
             var hikingTrail = new HikingTrail()
             {
@@ -30,7 +30,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command
 
             //implement unit of work pattern
 
-            return entity;
+            return entity.Id;
         }
     }
 }

@@ -5,7 +5,7 @@ using ActivityApp.Contracts;
 namespace ActivityApp.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class HikingTrailController : ControllerBase
     {
         private readonly IHikingTrailService _hikingTrailService;
@@ -16,6 +16,7 @@ namespace ActivityApp.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [ActionName(nameof(Get))]
         public async Task<ActionResult<HikingTrailResponse>> Get(Guid id)
         {
             var hikingTrail = await _hikingTrailService.GetById(id);
@@ -23,10 +24,14 @@ namespace ActivityApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<HikingTrailResponse>> Add(HikingTrailRequest hikingTrailRequest)
+        public async Task<ActionResult<HikingTrailResponse>> Create(HikingTrailRequest hikingTrailRequest)
         {
             var hikingTrail = await _hikingTrailService.Create(hikingTrailRequest);
-            return Ok(hikingTrail);
+            return CreatedAtAction(
+                actionName: nameof(Get), 
+                routeValues: new { id = hikingTrail.HikingTrailId }, 
+                value: hikingTrail
+                );
         }
 
         [HttpPut("{id:guid}")]

@@ -1,5 +1,4 @@
 ﻿using ActivityApp.Application.Contracts;
-using ActivityApp.Domain;
 using ActivityApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +26,14 @@ namespace ActivityApp.Persistance.Repositories
             return await _context.HikingTrails
                 .Include(ht => ht.Coordinates)
                 .FirstOrDefaultAsync(ht => ht.Id == id);
+        }
+
+        public async Task<HikingTrail?> UpdateAsync(HikingTrail entity)
+        {
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
     }
 }
