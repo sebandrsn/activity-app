@@ -6,32 +6,37 @@ namespace ActivityApp.Persistance.Repositories
 {
     public class HikingTrailRepository : IHikingTrailRepository
     {
-        private ActivityAppContext _context;
+        private ActivityAppContext _dbContext;
 
-        public HikingTrailRepository(ActivityAppContext context)
+        public HikingTrailRepository(ActivityAppContext dbContext)
         {
-            _context = context;
+            _dbContext = dbContext;
         }
 
         public async Task<HikingTrail> AddAsync(HikingTrail entity)
         {
-            await _context.AddAsync(entity);
-            await _context.SaveChangesAsync();
+            await _dbContext.AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
 
             return entity;
         }
 
         public async Task<HikingTrail?> GetByIdAsync(Guid id)
         {
-            return await _context.HikingTrails
+            return await _dbContext.HikingTrails
                 .Include(ht => ht.Coordinates)
                 .FirstOrDefaultAsync(ht => ht.Id == id);
         }
 
+        public async Task<IReadOnlyList<HikingTrail>> ListAllAsync()
+        {
+            return await _dbContext.HikingTrails.ToListAsync();
+        }
+
         public async Task<HikingTrail?> UpdateAsync(HikingTrail entity)
         {
-            _context.Update(entity);
-            await _context.SaveChangesAsync();
+            _dbContext.Update(entity);
+            await _dbContext.SaveChangesAsync();
 
             return entity;
         }

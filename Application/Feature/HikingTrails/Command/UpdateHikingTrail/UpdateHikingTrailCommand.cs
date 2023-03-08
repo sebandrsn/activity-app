@@ -1,8 +1,7 @@
 ﻿using ActivityApp.Application.Contracts;
-using ActivityApp.Application.DTOs;
 using MediatR;
 
-namespace ActivityApp.Application.Feature.HikingTrails.Command
+namespace ActivityApp.Application.Feature.HikingTrails.Command.UpdateHikingTrail
 {
     public class UpdateHikingTrailCommand : IRequest<Guid>
     {
@@ -52,7 +51,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command
 
                 await _hikingTrailRepository.UpdateAsync(hikingTrail);
             }
-            
+
             return hikingTrail.Id;
         }
     }

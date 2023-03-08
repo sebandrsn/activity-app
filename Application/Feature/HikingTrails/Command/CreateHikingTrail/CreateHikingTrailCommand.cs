@@ -2,7 +2,7 @@
 using ActivityApp.Domain.Entities;
 using MediatR;
 
-namespace ActivityApp.Application.Feature.HikingTrails.Command
+namespace ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail
 {
     public class CreateHikingTrailCommand : IRequest<Guid>
     {

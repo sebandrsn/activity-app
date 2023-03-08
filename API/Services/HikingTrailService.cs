@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using ActivityApp.Domain.Entities;
-using ActivityApp.Application.Feature.HikingTrails.Command;
 using ActivityApp.Contracts;
-using ActivityApp.Application.Feature.HikingTrails.Queries;
+using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail;
+using ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail;
+using ActivityApp.Application.Feature.HikingTrails.Command.UpdateHikingTrail;
+using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailsList;
 
 namespace ActivityApp.Services
 {
@@ -15,26 +17,15 @@ namespace ActivityApp.Services
             _mediator = mediator;
         }
 
-        public async Task<HikingTrailResponse> GetById(Guid Id)
+        public async Task<HikingTrailDetailVm> GetById(Guid Id)
         {
             var command = new GetHikingTrailDetailQuery()
             {
                 Id = Id
             };
+            var hikingTrailDetailVm = await _mediator.Send(command);
 
-            var hikingTrailDTO = await _mediator.Send(command);
-
-            var hikingTrailResponse = new HikingTrailResponse()
-            {
-                HikingTrailId = hikingTrailDTO.Id,
-                Name = hikingTrailDTO.Name,
-                CoordinatesId = hikingTrailDTO.Coordinates.Id,
-                Latitude = hikingTrailDTO.Coordinates.Latitude,
-                Longitude = hikingTrailDTO.Coordinates.Longitude,
-                Length = hikingTrailDTO.Length
-            };
-
-            return hikingTrailResponse;
+            return hikingTrailDetailVm;
         }
 
         public async Task<Guid> Create(HikingTrailRequest hikingTrailRequest)
@@ -68,6 +59,14 @@ namespace ActivityApp.Services
             var hikingTrailGuid = await _mediator.Send(command);
 
             return hikingTrailGuid;
+        }
+
+        public async Task<List<HikingTrailListVm>> ListAll()
+        {
+            var command = new GetHikingTrailsListQuery();
+            var hikingTrails = await _mediator.Send(command);
+
+            return hikingTrails;
         }
     }
 }

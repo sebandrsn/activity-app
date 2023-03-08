@@ -1,6 +1,6 @@
-﻿namespace ActivityApp.Application.DTOs
+﻿namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail
 {
-    public class CoordinatesDTO
+    public class CoordinatesDto
     {
         public Guid Id { get; set; }
         public double? Latitude { get; set; }
