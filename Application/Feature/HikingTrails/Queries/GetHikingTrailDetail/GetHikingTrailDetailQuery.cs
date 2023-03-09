@@ -1,4 +1,5 @@
 ﻿using ActivityApp.Application.Contracts;
+using AutoMapper;
 using MediatR;
 
 namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail
@@ -11,10 +12,12 @@ namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDet
     public class GetHikingTrailDetailQueryHandler : IRequestHandler<GetHikingTrailDetailQuery, HikingTrailDetailVm>
     {
         private readonly IHikingTrailRepository _hikingTrailRepository;
+        private readonly IMapper _mapper;
 
-        public GetHikingTrailDetailQueryHandler(IHikingTrailRepository hikingTrailRepository)
+        public GetHikingTrailDetailQueryHandler(IHikingTrailRepository hikingTrailRepository, IMapper mapper)
         {
             _hikingTrailRepository = hikingTrailRepository;
+            _mapper = mapper;
         }
 
         public async Task<HikingTrailDetailVm> Handle(GetHikingTrailDetailQuery request, CancellationToken cancellationToken)
@@ -24,20 +27,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDet
             if (entity == null)
                 throw new Exception(); //create NotFoundException and implement here
 
-            var hikingTrailDTO = new HikingTrailDetailVm()
-            {
-                HikingTrailId = entity.Id,
-                Name = entity.Name,
-                Coordinates = new CoordinatesDto()
-                {
-                    Id = entity.Coordinates.Id,
-                    Latitude = entity.Coordinates.Latitude,
-                    Longitude = entity.Coordinates.Longitude
-                },
-                Length = entity.Length,
-            };
-
-            return hikingTrailDTO;
+            return _mapper.Map<HikingTrailDetailVm>(entity); ;
         }
     }
 }

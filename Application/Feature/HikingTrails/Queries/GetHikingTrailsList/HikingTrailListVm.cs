@@ -2,7 +2,7 @@
 {
     public class HikingTrailListVm
     {
-        public Guid HikingTrailId { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; } = null!;
     }
 }
