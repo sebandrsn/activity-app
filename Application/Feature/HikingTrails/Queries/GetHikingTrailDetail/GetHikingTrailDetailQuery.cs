@@ -11,13 +11,13 @@ namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDet
 
     public class GetHikingTrailDetailQueryHandler : IRequestHandler<GetHikingTrailDetailQuery, HikingTrailDetailVm>
     {
-        private readonly IHikingTrailRepository _hikingTrailRepository;
         private readonly IMapper _mapper;
+        private readonly IHikingTrailRepository _hikingTrailRepository;
 
-        public GetHikingTrailDetailQueryHandler(IHikingTrailRepository hikingTrailRepository, IMapper mapper)
+        public GetHikingTrailDetailQueryHandler(IMapper mapper, IHikingTrailRepository hikingTrailRepository)
         {
-            _hikingTrailRepository = hikingTrailRepository;
             _mapper = mapper;
+            _hikingTrailRepository = hikingTrailRepository;
         }
 
         public async Task<HikingTrailDetailVm> Handle(GetHikingTrailDetailQuery request, CancellationToken cancellationToken)

@@ -15,10 +15,16 @@ namespace ActivityApp.Persistance.Repositories
 
         public async Task<HikingTrail> AddAsync(HikingTrail entity)
         {
-            await _dbContext.AddAsync(entity);
+            _dbContext.Add(entity);
             await _dbContext.SaveChangesAsync();
 
             return entity;
+        }
+
+        public async Task DeleteAsync(HikingTrail entity)
+        {
+            _dbContext.Remove(entity);
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<HikingTrail?> GetByIdAsync(Guid id)
@@ -37,7 +43,6 @@ namespace ActivityApp.Persistance.Repositories
         {
             _dbContext.Update(entity);
             await _dbContext.SaveChangesAsync();
-
             return entity;
         }
     }

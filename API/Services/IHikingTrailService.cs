@@ -10,5 +10,6 @@ namespace ActivityApp.Services
         public Task<Guid> Create(HikingTrailRequest hikingTrailRequest);
         public Task<Guid> Update(Guid id, HikingTrailRequest hikingTrailRequest);
         public Task<List<HikingTrailListVm>> ListAll();
+        public Task Remove(Guid id);
     }
 }

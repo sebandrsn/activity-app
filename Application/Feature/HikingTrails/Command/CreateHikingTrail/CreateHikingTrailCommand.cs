@@ -9,6 +9,8 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail
         public string Name { get; set; } = null!;
         public Address Address { get; set; } = null!;
         public Coordinates Coordinates { get; set; } = null!;
+        public double? Length { get; set; } = null;
+        public string Description { get; set; } = null!;
     }
 
     public class CreateHikingTrailCommandHandler : IRequestHandler<CreateHikingTrailCommand, Guid>
@@ -23,7 +25,9 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail
             var hikingTrail = new HikingTrail()
             {
                 Name = request.Name,
-                Coordinates = request.Coordinates
+                Coordinates = request.Coordinates,
+                Length = request.Length,
+                Description = request.Description
             };
 
             var entity = await _hikingTrailRepository.AddAsync(hikingTrail);

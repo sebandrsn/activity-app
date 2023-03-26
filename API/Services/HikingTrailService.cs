@@ -5,6 +5,7 @@ using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail;
 using ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail;
 using ActivityApp.Application.Feature.HikingTrails.Command.UpdateHikingTrail;
 using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailsList;
+using ActivityApp.Application.Feature.HikingTrails.Command.RemoveHikingTrail;
 
 namespace ActivityApp.Services
 {
@@ -37,7 +38,9 @@ namespace ActivityApp.Services
                 {
                     Latitude = hikingTrailRequest.Latitude,
                     Longitude = hikingTrailRequest.Longitude
-                }
+                },
+                Length = hikingTrailRequest.Length,
+                Description = hikingTrailRequest.Description
             };
 
             var hikingTrailId = await _mediator.Send(command);
@@ -67,6 +70,16 @@ namespace ActivityApp.Services
             var hikingTrails = await _mediator.Send(command);
 
             return hikingTrails;
+        }
+
+        public async Task Remove(Guid id)
+        {
+            var command = new RemoveHikingTrailCommand()
+            {
+                Id = id
+            };
+
+            await _mediator.Send(command);
         }
     }
 }

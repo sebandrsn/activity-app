@@ -17,7 +17,7 @@ namespace ActivityApp.Api.Controllers
             _hikingTrailService = hikingTrailService;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ActionName(nameof(Get))]
         public async Task<ActionResult<HikingTrailDetailVm>> Get(Guid id)
         {
@@ -48,6 +48,14 @@ namespace ActivityApp.Api.Controllers
         {
             var hikingTrails = await _hikingTrailService.ListAll();
             return Ok(hikingTrails);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            await _hikingTrailService.Remove(id);
+
+            return Ok();
         }
     }
 }

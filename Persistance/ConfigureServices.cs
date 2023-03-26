@@ -15,6 +15,7 @@ namespace ActivityApp.Persistance
                 options.UseNpgsql(connectionString));
 
             services.AddScoped<IHikingTrailRepository, HikingTrailRepository>();
+            services.AddScoped<ICoordinatesRepository, CoordinatesRepository>();
 
             return services;
         }
