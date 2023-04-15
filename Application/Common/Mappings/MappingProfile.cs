@@ -3,7 +3,7 @@ using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailsList;
 using ActivityApp.Domain.Entities;
 using AutoMapper;
 
-namespace ActivityApp.Application
+namespace ActivityApp.Application.Common.Mappings
 {
     public class MappingProfile : Profile
     {
