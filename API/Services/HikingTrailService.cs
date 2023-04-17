@@ -29,7 +29,7 @@ namespace ActivityApp.Services
             return hikingTrailDetailVm;
         }
 
-        public async Task<Guid> Create(HikingTrailRequest hikingTrailRequest)
+        public async Task<CreateHikingTrailCommandResponse> Create(HikingTrailRequest hikingTrailRequest)
         {
             var command = new CreateHikingTrailCommand()
             {
@@ -43,9 +43,9 @@ namespace ActivityApp.Services
                 Description = hikingTrailRequest.Description
             };
 
-            var hikingTrailId = await _mediator.Send(command);
+            var createHikingTrailCommandResponse = await _mediator.Send(command);
 
-            return hikingTrailId;
+            return createHikingTrailCommandResponse;
         }
 
         public async Task<Guid> Update(Guid id, HikingTrailRequest hikingTrailRequest)

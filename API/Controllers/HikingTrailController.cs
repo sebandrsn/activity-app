@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ActivityApp.Contracts;
 using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail;
 using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailsList;
+using ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail;
 
 namespace ActivityApp.Api.Controllers
 {
@@ -26,13 +27,19 @@ namespace ActivityApp.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Guid>> Create(HikingTrailRequest hikingTrailRequest)
+        public async Task<ActionResult<CreateHikingTrailCommandResponse>> Create(HikingTrailRequest hikingTrailRequest)
         {
-            var hikingTrailId = await _hikingTrailService.Create(hikingTrailRequest);
+            var createHikingTrailCommandResponse = await _hikingTrailService.Create(hikingTrailRequest);
+
+            if (!createHikingTrailCommandResponse.Success)
+            {
+                return BadRequest(createHikingTrailCommandResponse);
+            }
+
             return CreatedAtAction(
-                actionName: nameof(Get), 
-                routeValues: new { id = hikingTrailId }, 
-                value: hikingTrailId
+                actionName: nameof(Get),
+                routeValues: new { id = createHikingTrailCommandResponse.HikingTrail.Id },
+                value: createHikingTrailCommandResponse
                 );
         }
 
