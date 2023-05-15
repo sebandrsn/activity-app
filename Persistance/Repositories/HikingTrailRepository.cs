@@ -10,7 +10,7 @@ namespace ActivityApp.Persistance.Repositories
 
         public HikingTrailRepository(ActivityAppContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public async Task<HikingTrail> AddAsync(HikingTrail entity)
@@ -36,7 +36,9 @@ namespace ActivityApp.Persistance.Repositories
 
         public async Task<IReadOnlyList<HikingTrail>> ListAllAsync()
         {
-            return await _dbContext.HikingTrails.ToListAsync();
+            return await _dbContext.HikingTrails
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public async Task<HikingTrail?> UpdateAsync(HikingTrail entity)

@@ -8,11 +8,11 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail
 {
     public class CreateHikingTrailCommand : IRequest<CreateHikingTrailCommandResponse>
     {
-        public string Name { get; set; } = null!;
-        public Address Address { get; set; } = null!;
-        public Coordinates Coordinates { get; set; } = null!;
-        public double? Length { get; set; } = null;
-        public string Description { get; set; } = null!;
+        public string Name { get; init; } = null!;
+        public Address Address { get; init; } = null!;
+        public Coordinates Coordinates { get; init; } = null!;
+        public double? Length { get; init; }
+        public string Description { get; init; } = null!;
     }
 
     public class CreateHikingTrailCommandHandler : IRequestHandler<CreateHikingTrailCommand, CreateHikingTrailCommandResponse>

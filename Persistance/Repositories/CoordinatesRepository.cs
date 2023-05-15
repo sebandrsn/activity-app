@@ -10,7 +10,7 @@ namespace ActivityApp.Persistance.Repositories
 
         public CoordinatesRepository(ActivityAppContext dbContext)
         {
-            _dbContext = dbContext;
+            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public async Task<Coordinates> AddAsync(Coordinates entity)

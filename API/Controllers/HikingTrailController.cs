@@ -15,11 +15,13 @@ namespace ActivityApp.Api.Controllers
 
         public HikingTrailController(IHikingTrailService hikingTrailService)
         {
-            _hikingTrailService = hikingTrailService;
+            _hikingTrailService = hikingTrailService ?? throw new ArgumentNullException(nameof(hikingTrailService));
         }
 
         [HttpGet("{id:guid}")]
         [ActionName(nameof(Get))]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<HikingTrailDetailVm>> Get(Guid id)
         {
             var hikingTrail = await _hikingTrailService.GetById(id);
@@ -27,6 +29,7 @@ namespace ActivityApp.Api.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<CreateHikingTrailCommandResponse>> Create(HikingTrailRequest hikingTrailRequest)
         {
             var createHikingTrailCommandResponse = await _hikingTrailService.Create(hikingTrailRequest);
