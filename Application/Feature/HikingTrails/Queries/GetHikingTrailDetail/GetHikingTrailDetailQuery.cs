@@ -14,7 +14,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDet
         private readonly IMapper _mapper;
         private readonly IHikingTrailRepository _hikingTrailRepository;
 
-        public GetHikingTrailDetailQueryHandler(IMapper mapper, IHikingTrailRepository hikingTrailRepository)
+        public GetHikingTrailDetailQueryHandler(IHikingTrailRepository hikingTrailRepository, IMapper mapper)
         {
             _mapper = mapper;
             _hikingTrailRepository = hikingTrailRepository;
@@ -27,7 +27,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDet
             if (entity == null)
                 throw new Exception(); //create NotFoundException and implement here
 
-            return _mapper.Map<HikingTrailDetailVm>(entity); ;
+            return _mapper.Map<HikingTrailDetailVm>(entity);
         }
     }
 }
