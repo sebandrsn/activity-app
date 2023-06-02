@@ -33,6 +33,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Command.CreateHikingTrail
         {
             var validationResult = await _validator.ValidateAsync(request);
             var response = new CreateHikingTrailCommandResponse();
+
             if (!validationResult.IsValid)
             {
                 response.ValidationErrors = new List<string>();

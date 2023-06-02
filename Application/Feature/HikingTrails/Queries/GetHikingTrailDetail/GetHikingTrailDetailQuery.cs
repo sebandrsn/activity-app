@@ -1,4 +1,5 @@
-﻿using ActivityApp.Application.Contracts;
+﻿using ActivityApp.Application.Common.Exceptions;
+using ActivityApp.Application.Contracts;
 using AutoMapper;
 using MediatR;
 
@@ -24,8 +25,7 @@ namespace ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDet
         {
             var entity = await _hikingTrailRepository.GetByIdAsync(request.Id);
 
-            if (entity == null)
-                throw new Exception(); //create NotFoundException and implement here
+            if (entity == null) throw new NotFoundException("Hiking trail", request.Id);
 
             return _mapper.Map<HikingTrailDetailVm>(entity);
         }

@@ -1,4 +1,5 @@
-﻿using ActivityApp.Application.Common.Mappings;
+﻿using ActivityApp.Application.Common.Exceptions;
+using ActivityApp.Application.Common.Mappings;
 using ActivityApp.Application.Contracts;
 using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail;
 using Application.UnitTests.Mocks.RepositoryMock;
@@ -29,12 +30,34 @@ namespace Application.UnitTests.HikingTrails.Queries
         {
             //Arrange
             var handler = new GetHikingTrailDetailQueryHandler(_mockHikingTrailRepository.Object, _mapper);
+            var getHikingTrailDetailQuery = new GetHikingTrailDetailQuery()
+            {
+                Id = RepositoryMock.HikingTrailDetailGuid
+            };
 
             //Act
-            var hikingTrail = await handler.Handle(new GetHikingTrailDetailQuery() { Id = RepositoryMock.HikingTrailDetailGuid }, CancellationToken.None);
+            var hikingTrail = await handler.Handle(getHikingTrailDetailQuery, CancellationToken.None);
 
             //Assert
             hikingTrail.ShouldBeOfType<HikingTrailDetailVm>();
+        }
+
+        [Fact]
+        public async Task Get_HikingTrailWithWrongId_ThrowsNotFoundException()
+        {
+            //Arrange
+            var handler = new GetHikingTrailDetailQueryHandler(_mockHikingTrailRepository.Object, _mapper);
+            var getHikingTrailDetailQuery = new GetHikingTrailDetailQuery() { Id =  Guid.Empty };
+
+            //Act
+            var exception = await Should.ThrowAsync<NotFoundException>(async () =>
+            {
+                await handler.Handle(getHikingTrailDetailQuery, CancellationToken.None);
+            });
+
+            //Assert
+            exception.ShouldBeOfType<NotFoundException>();
+            exception.Message.ShouldBe($"Hiking trail ({Guid.Empty}) was not found");
         }
     }
 }
