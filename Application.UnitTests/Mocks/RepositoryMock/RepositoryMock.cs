@@ -76,17 +76,17 @@ namespace Application.UnitTests.Mocks.RepositoryMock
                 Length = 10
             };
 
-            var mockHikingTrailRepository = new Mock<IHikingTrailRepository>();
+            var hikingTrailRepositoryMock = new Mock<IHikingTrailRepository>();
 
-            mockHikingTrailRepository
+            hikingTrailRepositoryMock
                 .Setup(repo => repo.ListAllAsync())
                 .ReturnsAsync(hikingTrails);
 
-            mockHikingTrailRepository
+            hikingTrailRepositoryMock
                 .Setup(repo => repo.GetByIdAsync(HikingTrailDetailGuid))
                 .ReturnsAsync(hikingTrailDetail);
 
-            return mockHikingTrailRepository;
+            return hikingTrailRepositoryMock;
         }
     }
 }

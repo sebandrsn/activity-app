@@ -20,11 +20,11 @@ namespace ActivityApp.Services
 
         public async Task<HikingTrailDetailVm> GetById(Guid Id)
         {
-            var command = new GetHikingTrailDetailQuery()
+            var query = new GetHikingTrailDetailQuery()
             {
                 Id = Id
             };
-            var hikingTrailDetailVm = await _mediator.Send(command);
+            var hikingTrailDetailVm = await _mediator.Send(query);
 
             return hikingTrailDetailVm;
         }
@@ -66,8 +66,8 @@ namespace ActivityApp.Services
 
         public async Task<List<HikingTrailListVm>> ListAll()
         {
-            var command = new GetHikingTrailsListQuery();
-            var hikingTrails = await _mediator.Send(command);
+            var query = new GetHikingTrailsListQuery();
+            var hikingTrails = await _mediator.Send(query);
 
             return hikingTrails;
         }

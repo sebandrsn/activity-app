@@ -2,7 +2,11 @@
 using ActivityApp.Application.Common.Mappings;
 using ActivityApp.Application.Contracts;
 using ActivityApp.Application.Feature.HikingTrails.Queries.GetHikingTrailDetail;
+using ActivityApp.Domain.Entities;
+using Application.UnitTests.Mocks;
 using Application.UnitTests.Mocks.RepositoryMock;
+using AutoFixture;
+using AutoFixture.Xunit2;
 using AutoMapper;
 using Shouldly;
 
@@ -24,30 +28,12 @@ namespace Application.UnitTests.HikingTrails.Queries
             _mapper = configurationProvider.CreateMapper();
         }
 
-
-        [Fact]
-        public async Task Get_HikingTrail_ReturnsHikingTrail()
-        {
-            //Arrange
-            var handler = new GetHikingTrailDetailQueryHandler(_mockHikingTrailRepository.Object, _mapper);
-            var getHikingTrailDetailQuery = new GetHikingTrailDetailQuery()
-            {
-                Id = RepositoryMock.HikingTrailDetailGuid
-            };
-
-            //Act
-            var hikingTrail = await handler.Handle(getHikingTrailDetailQuery, CancellationToken.None);
-
-            //Assert
-            hikingTrail.ShouldBeOfType<HikingTrailDetailVm>();
-        }
-
         [Fact]
         public async Task Get_HikingTrailWithWrongId_ThrowsNotFoundException()
         {
             //Arrange
             var handler = new GetHikingTrailDetailQueryHandler(_mockHikingTrailRepository.Object, _mapper);
-            var getHikingTrailDetailQuery = new GetHikingTrailDetailQuery() { Id =  Guid.Empty };
+            var getHikingTrailDetailQuery = new GetHikingTrailDetailQuery() { Id = Guid.Empty };
 
             //Act
             var exception = await Should.ThrowAsync<NotFoundException>(async () =>
@@ -58,6 +44,26 @@ namespace Application.UnitTests.HikingTrails.Queries
             //Assert
             exception.ShouldBeOfType<NotFoundException>();
             exception.Message.ShouldBe($"Hiking trail ({Guid.Empty}) was not found");
+        }
+
+        [Theory]
+        [AutoDomainData]
+        public async Task Get_HikingTrail_ReturnsHikingTrail(
+            [Frozen] Mock<IHikingTrailRepository> hikingTrailRepositoryMock,
+            GetHikingTrailDetailQuery dq,
+            HikingTrail hikingTrail)
+        {
+            //Arrange
+            hikingTrailRepositoryMock
+                .Setup(repo => repo.GetByIdAsync(dq.Id))
+                .ReturnsAsync(hikingTrail);
+            var handler = new GetHikingTrailDetailQueryHandler(hikingTrailRepositoryMock.Object, _mapper);
+
+            //Act
+            var returnedHikingTrail = await handler.Handle(dq, CancellationToken.None);
+
+            //Assert
+            returnedHikingTrail.ShouldBeOfType<HikingTrailDetailVm>();
         }
     }
 }
