@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { HikingTrailService } from '../services/HikingTrailService'
 import { HikingTrailData } from '../types/HikingTrail'
-import HikingTrail from './HikingTrail'
+import HikingTrailCard from '../components/HikingTrailCard'
+import Grid from '@mui/material/Unstable_Grid2'
+import { Box } from '@mui/material'
 
-const HikingTrailList: React.FC = () => {
-
+export const Home: React.FC = () => {
     const [hikingTrails, setHikingTrails] = useState<HikingTrailData[]>([])
 
     useEffect(() => {
@@ -23,12 +24,15 @@ const HikingTrailList: React.FC = () => {
     }
 
     return (
-        <div>
-            {hikingTrails.map(hikingTrail => (
-                <HikingTrail key={hikingTrail.id} hikingTrail={hikingTrail} />
-            ))}
-        </div>
+        <Box sx={{ m: 2 }}>
+            <Grid container spacing={3}>
+                {hikingTrails.map(hikingTrail => (
+                    <Grid lg={4} md={6} xs={12}>
+                        <HikingTrailCard key={hikingTrail.id} hikingTrail={hikingTrail} />
+                    </Grid>
+                ))}
+            </Grid>
+        </Box>
     )
 }
 
-export default HikingTrailList

@@ -1,11 +1,19 @@
 import React from 'react';
-import HikingTrailList from './components/HikingTrailList';
+import './stylesheets/main.css'
+import { Home } from './pages/Home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HikingTrail from './pages/HikingTrail';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
-    <div className="App">
-      <HikingTrailList />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/hikingtrail/:id' element={<HikingTrail />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

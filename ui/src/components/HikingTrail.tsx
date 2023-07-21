@@ -1,17 +1,14 @@
 import React from 'react'
 import { HikingTrailData } from '../types/HikingTrail'
-import { Card } from '@mui/material'
+import './../stylesheets/main.css'
 
 interface Props {
-  hikingTrail: HikingTrailData
+  hikingTrail: HikingTrailData | null
 }
 
 const HikingTrail: React.FC<Props> = ({ hikingTrail }: Props) => {
   return (
-    <Card>
-      <div>{hikingTrail.id}</div>
-      <div>{hikingTrail.name}</div>
-    </Card>
+    <div>this is a hiking trail, cool huh?</div>
   )
 }
 
