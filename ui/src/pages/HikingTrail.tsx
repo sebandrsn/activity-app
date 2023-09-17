@@ -5,7 +5,7 @@ import { HikingTrailService } from '../services/HikingTrailService'
 import { HikingTrailDto } from '../types/HikingTrailDto'
 
 const HikingTrail = () => {
-  let { id } = useParams()
+  const { id } = useParams()
 
   const [hikingTrail, setHikingTrail] = useState<HikingTrailDto>()
 
@@ -14,7 +14,10 @@ const HikingTrail = () => {
   }, [])
 
   const retrieveHikingTrail = async () => {
-    await HikingTrailService.getHikingTrailDetail(id!)
+    if (id === undefined) {
+      throw new Error('Missing Id')
+    }
+    await HikingTrailService.getHikingTrailDetail(id)
     .then((response) => {
       setHikingTrail(response.data)
     })

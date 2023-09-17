@@ -16,9 +16,6 @@ const HikingTrail: React.FC<Props> = ({id}) => {
   }, [])
 
   const retrieveHikingTrail = () => {
-    
-    const hikingTrail = HikingTrailService.getHikingTrailList().then(res => res.data).catch(error => console.log(error))
-
     HikingTrailService.getHikingTrailDetail(id!)
     .then((response) => {
       setHikingTrail(response.data)

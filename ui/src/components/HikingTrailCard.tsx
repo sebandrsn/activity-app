@@ -11,7 +11,7 @@ interface Props {
 }
 
 const HikingTrailCard: React.FC<Props> = ({ hikingTrail }: Props) => {
-    let navigate = useNavigate()
+    const navigate = useNavigate()
 
     const [open, setOpen] = useState(false)
     const handleOpen = () => setOpen(true)
